@@ -4,15 +4,14 @@ import './Home.css';
 import Categories from '../Select Category Data/Categories';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-
-
+import { MenuItem, TextField } from '@mui/material';
 
 
 const Home = ({ name, setName, fetchQuestions }) => {
 
  const [category, setcategory] = useState('');
  const [difficulty, setdifficulty] = useState('');
- const [error, setError] = useState(false);
+ 
 
 
 const navigate = useNavigate();
@@ -21,20 +20,6 @@ const navigate = useNavigate();
  const goToQuiz= ()=> {
   navigate('/quiz')
  }
-
-  
-const hendleSubmit = () => {
-  if(!category || !difficulty || !name){
-     setError(true);
-     return;
-  } else {
-     setError(false);
-     fetchQuestions(category,difficulty);
-     navigate.push('/quiz')
-  }
- }; 
-
-
 
   return (
     <div className='home'>
@@ -46,42 +31,41 @@ const hendleSubmit = () => {
        <span className="settings">Quiz Settings
     
        </span>
-       <div className="form-floating mb-3 mt-3">
-          <input type="name" className="form-control" placeholder="Enter Your Name mt-5" 
-            onChange={(e) => setName(e.target.value)} />
-          <label>Name</label>
-  
+       <div className='row m-4'>
+       <TextField label='Tell us your name'  color='secondary' variant='outlined' style={{marginTop:20}} onChange={(e) => setName(e.target.value)} value={name} />
        </div>
-       
-       <div className="form-floating">
-       <select defaultValue='' onChange={(e) => setcategory(e.target.value)}
-            value={category} className="form-select mb-3">
+       <div className='row m-4'>
+      <TextField select label='select category'  color='secondary' variant='outlined' onChange={(e) => setcategory(e.target.value)} value={category}>
+    {
+    Categories.map((cat) => (
+      <MenuItem key={cat.category} value={cat.value}>
+        {cat.category}
+      </MenuItem>
+    ))
+    }
 
-          <option  />
-            {Categories.map((cat) => (
-              <option key = {cat.category} value = {cat.value}>
-              {cat.category}
-          </option>
-          
-        ))};
-      </select>
-        <label>Select Category</label>
-      </div>
-
-      <div className="form-floating">
-        <select defaultValue='' className="form-select mb-3">
-        onChange={(e) => setdifficulty(e.target.value)}
+    </TextField>
+    </div>
+    <div className='row m-4 '>
+      <TextField
+            select
+            label="Select Difficulty"
+            variant="outlined"
+            style={{ margintop:25}}
+            onChange={(e) => setdifficulty(e.target.value)}
             value={difficulty}
-
-        <option ></option>
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-
-        
-      </select>
-        <label>Select Difficulty</label>
-      </div>
+          >
+            <MenuItem key="Easy" value="easy">
+              Easy
+            </MenuItem>
+            <MenuItem key="Medium" value="medium">
+              Medium
+            </MenuItem>
+            <MenuItem key="Hard" value="hard">
+              Hard
+            </MenuItem>
+          </TextField>
+          </div>
       
       <button onClick={goToQuiz} type="button" className="btn btn-secondary"> 
         Start Quiz</button>
