@@ -20,9 +20,7 @@ const Question = ({
         const [error, setError] = useState(false);
         const navigate = useNavigate();
         
-        const goToresult= ()=> {
-            navigate('/result')
-           }
+        
 
   const handleSelect = (i) => {
     if (selected === i && selected === correct) return "select";
