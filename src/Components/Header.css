@@ -1,0 +1,15 @@
+.title{
+    font-size: 4rem;
+    font-family: Montserrat , Arial, Helvetica, sans-serif;
+    color:rgb(99, 97, 96);
+    margin: 2rem;
+    border: 1px solid seashell; 
+    box-shadow: 2px 2px 4px  lavenderblush;
+    
+
+}
+
+.header{
+    display: flex;
+    
+}
